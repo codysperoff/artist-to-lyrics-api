@@ -15,3 +15,73 @@
     -webkit-padding-start: 0px;
     -webkit-padding-end: 0px;
 }
+
+body {
+    font-family: 'Droid Serif', serif;
+    color: black;
+    background-image: url("http://www.bounceschool.com/wp-content/uploads/2014/08/handsbackground.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+header {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
+h1 {
+    text-align: center;
+    font-size: 300%;
+}
+
+.search {
+    width: 60%;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#user-text {
+    width: 421px;
+    border: 1px solid black;
+    font-size: 32px;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+#searchButton {
+    margin-left: 10px;
+    padding: 10px;
+    background-color: navy;
+    color: yellow;
+    border-radius: 5px;
+    vertical-align: top;
+}
+
+.results {
+    padding-top: 20px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.results ul {
+    list-style-type: none;
+}
+
+.results ul li {
+    display: inline-block;
+    width: 45%;
+    background: rgba(341, 272, 255, 0.90);
+    margin-bottom: 10px;
+    margin-right: 49px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    text-align: center;
+    vertical-align: top;
+}

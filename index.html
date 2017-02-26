@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Artist-to-Lyrics</title>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif" rel="stylesheet">
+    <link rel="stylesheet" href="main.css">
 </head>
 
 <body>
@@ -13,18 +15,14 @@
 
     <section class="search">
         <form action="" class="search-form">
-            <input id="user-text" type="text" value="artist" placeholder="Search for your favorite artist">
+            <input id="user-text" type="text" value="green day" placeholder="Search for your favorite artist">
             <button id="searchButton" type="submit">Search</button>
         </form>
     </section>
 
     <section class="results">
-        <p>She eyes me like a Pisces when I am weak
-            <br> I've been locked inside your heart-shaped box for weeks
-            <br> I've been drawn into your magnetar pit trap trap
-            <br>I wish I could eat your cancer when you turn black</p>
+        <ul id="search-results"></ul>
     </section>
-
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
