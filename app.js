@@ -87,7 +87,8 @@ function displaySearchData(data) {
 
 
             if (item.track.lyrics_id === 0) {
-                resultElement += '<p class="lyric">no id</p>';
+                $("#lyric").text("no id");
+                //resultElement += '<p class="lyric">no id</p>';
             } else {
                 $.ajax({
                         type: "GET",
@@ -100,7 +101,8 @@ function displaySearchData(data) {
                         dataType: "jsonp",
                         contentType: 'application/json',
                         success: function (data) {
-                            resultElement += '<p class="lyric">success</p>';
+                            $(".lyric").text("success");
+                            //resultElement += '<p class="lyric">success</p>';
                             var dataString = JSON.stringify(data);
                             //                    console.log(trackID, data, dataString.lenght, data.message.body.length, data.message.body.lyrics.lyrics_body);
                             console.log(item.track.lyrics_id, data, dataString.length);
@@ -108,20 +110,24 @@ function displaySearchData(data) {
                                 console.log("inside dataString.length");
                                 if (data.message.body.lyrics.lyrics_body !== "") {
                                     console.log("inside data.message.body.lyrics.lyrics_body");
-                                    resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
+                                    $(".lyric").text(data.message.body.lyrics.lyrics_body);
+                                    //resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
                                     //$(".lyric").text("???");
                                 } else {
                                     console.log("inside ELSE data.message.body.lyrics.lyrics_body");
-                                    resultElement += '<p class="lyric">empty</p>';
+                                    $(".lyric").text("empty");
+                                    //resultElement += '<p class="lyric">empty</p>';
                                 }
                             } else {
                                 console.log("inside ELSE dataString.length");
-                                resultElement += '<p class="lyric">no</p>';
+                                $(".lyric").text("lyric");
+                                //resultElement += '<p class="lyric">no</p>';
                             }
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            resultElement += '<p class="lyric">error</p>';
+                            $(".lyric").text("error");
+                            //resultElement += '<p class="lyric">error</p>';
                             console.log(jqXHR);
                             console.log(textStatus);
                             console.log(errorThrown);
@@ -134,6 +140,7 @@ function displaySearchData(data) {
 
 
 
+            resultElement += '<p id="lyric"></p>'
             resultElement += '</li>';
         });
     }
