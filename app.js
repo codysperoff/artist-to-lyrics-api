@@ -83,12 +83,14 @@ function displaySearchData(data) {
             resultElement += '<a href="' + item.track.track_share_url + '" target = "_blank">'; //target blank will open the video in a new window
             resultElement += '<img src ="' + item.track.album_coverart_100x100 + '"/>'; //displays the video's thumbnail
             resultElement += '</a>';
+            console.log(resultElement);
 
 
 
             if (item.track.lyrics_id === 0) {
-                $("#lyric").text("no id");
-                //resultElement += '<p class="lyric">no id</p>';
+                //$(".lyric").text("no id");
+                resultElement += '<p class="lyric">no id</p>';
+                console.log(resultElement);
             } else {
                 $.ajax({
                         type: "GET",
@@ -101,33 +103,44 @@ function displaySearchData(data) {
                         dataType: "jsonp",
                         contentType: 'application/json',
                         success: function (data) {
-                            $(".lyric").text("success");
-                            //resultElement += '<p class="lyric">success</p>';
+                            //$(".lyric").text("success");
+                            resultElement += '<p class="lyric">success</p>';
+                            console.log(resultElement);
                             var dataString = JSON.stringify(data);
                             //                    console.log(trackID, data, dataString.lenght, data.message.body.length, data.message.body.lyrics.lyrics_body);
                             console.log(item.track.lyrics_id, data, dataString.length);
+                            //success - it has some text inside
                             if (dataString.length > 90) {
-                                console.log("inside dataString.length");
+                                console.log("inside IF dataString.length");
+                                //success - it has lyrics inside
                                 if (data.message.body.lyrics.lyrics_body !== "") {
-                                    console.log("inside data.message.body.lyrics.lyrics_body");
-                                    $(".lyric").text(data.message.body.lyrics.lyrics_body);
-                                    //resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
+                                    console.log("inside IF data.message.body.lyrics.lyrics_body");
+                                    //$(".lyric").text(data.message.body.lyrics.lyrics_body);
+                                    resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
+                                    console.log(resultElement);
                                     //$(".lyric").text("???");
-                                } else {
-                                    console.log("inside ELSE data.message.body.lyrics.lyrics_body");
-                                    $(".lyric").text("empty");
-                                    //resultElement += '<p class="lyric">empty</p>';
                                 }
-                            } else {
+                                //failure - has text but no lyrics
+                                else {
+                                    console.log("inside ELSE data.message.body.lyrics.lyrics_body");
+                                    //$(".lyric").text("empty");
+                                    resultElement += '<p class="lyric">failure - has text but no lyrics</p>';
+                                    console.log(resultElement);
+                                }
+                            }
+                            //failure - has no text and no lyrics
+                            else {
                                 console.log("inside ELSE dataString.length");
-                                $(".lyric").text("lyric");
-                                //resultElement += '<p class="lyric">no</p>';
+                                //$(".lyric").text("lyric");
+                                resultElement += '<p class="lyric">failure - not text no lyrics</p>';
+                                console.log(resultElement);
                             }
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                            $(".lyric").text("error");
-                            //resultElement += '<p class="lyric">error</p>';
+                            //$(".lyric").text("error");
+                            resultElement += '<p class="lyric">error</p>';
+                            console.log(resultElement);
                             console.log(jqXHR);
                             console.log(textStatus);
                             console.log(errorThrown);
@@ -138,9 +151,6 @@ function displaySearchData(data) {
                 );
             }
 
-
-
-            resultElement += '<p id="lyric"></p>'
             resultElement += '</li>';
         });
     }
@@ -148,3 +158,31 @@ function displaySearchData(data) {
 
     $('#search-results').html(resultElement);
 }
+
+
+//example of non call back api call
+
+var result = $.ajax({
+        /* update API end point */
+        type: "GET",
+        data: {
+            apikey: "b93f69f6b5070fdea1c558202a18ae1e",
+            track_id: item.track.lyrics_id,
+            format: "jsonp"
+        },
+        url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
+        dataType: "jsonp",
+        contentType: 'application/json'
+    })
+    /* if the call is successful (status 200 OK) show results */
+    .done(function (result) {
+        /* if the results are meeningful, we can just console.log them */
+        console.log(result);
+
+    })
+    /* if the call is NOT successful show errors */
+    .fail(function (jqXHR, error, errorThrown) {
+        console.log(jqXHR);
+        console.log(error);
+        console.log(errorThrown);
+    });
