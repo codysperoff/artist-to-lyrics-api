@@ -9,31 +9,38 @@ $(document).ready(function () {
         // get the text the user submitted
         var userText = $(this).find('#user-text').val();
         console.log(userText);
-        getTrackIDsByArtist(userText, displaySearchData);
+        getTrackIDsByArtist(userText);
     });
 });
 
 
 //2. Make the api call with the input from the user
-function getTrackIDsByArtist(userText, callback) {
+function getTrackIDsByArtist(userText) {
 
-    $.ajax({
-        type: "GET",
-        data: {
-            apikey: "b93f69f6b5070fdea1c558202a18ae1e",
-            q_artist: userText,
-            format: "jsonp"
-        },
-        url: "http://api.musixmatch.com/ws/1.1/track.search",
-        dataType: "jsonp",
-        contentType: 'application/json',
-        success: callback,
-        error: function (jqXHR, textStatus, errorThrown) {
+    var result = $.ajax({
+            type: "GET",
+            data: {
+                apikey: "b93f69f6b5070fdea1c558202a18ae1e",
+                q_artist: userText,
+                format: "jsonp"
+            },
+            url: "http://api.musixmatch.com/ws/1.1/track.search",
+            dataType: "jsonp",
+            contentType: 'application/json'
+        })
+        /* if the call is successful (status 200 OK) show results */
+        .done(function (result) {
+            /* if the results are meeningful, we can just console.log them */
+            console.log(result);
+            displaySearchData(result);
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
             console.log(jqXHR);
-            console.log(textStatus);
+            console.log(error);
             console.log(errorThrown);
-        }
-    });
+        });
+
 };
 
 function getLyricsByTrackID(trackID) {
@@ -46,27 +53,6 @@ function getLyricsByTrackID(trackID) {
 function displaySearchData(data) {
 
     console.log(data.message.body.track_list);
-    //    console.log(data.message.body.track_list[0].track.album_coverart_350x350)
-    //    console.log(data.message.body.track_list[0].track.lyrics_id)
-    //    var rand = data.message.body.track_list[Math.floor(Math.random() * data.message.body.track_list.length)];
-    //    console.log(rand.track.track_id)
-    //    var thisTrack = (rand.track.track_id)
-    //    var thisPic = rand.track.album_coverart_350x350;
-    //    console.log(thisPic)
-    //
-    //    var p = document.createElement("p");
-    //    p.textContent = thisTrack;
-    //    p.id = thisTrack;
-    //
-    //    var img = document.createElement("img")
-    //    img.setAttribute("src", thisPic)
-    //
-    //    document.getElementById("lyrics").appendChild(p).style.opacity = 0;
-    //    document.getElementById("lyrics").appendChild(img);
-    //    document.getElementById("ghost").click();
-
-
-
 
 
     var resultElement = '';
@@ -92,7 +78,8 @@ function displaySearchData(data) {
                 resultElement += '<p class="lyric">no id</p>';
                 console.log(resultElement);
             } else {
-                $.ajax({
+                var result = $.ajax({
+                        /* update API end point */
                         type: "GET",
                         data: {
                             apikey: "b93f69f6b5070fdea1c558202a18ae1e",
@@ -101,54 +88,56 @@ function displaySearchData(data) {
                         },
                         url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
                         dataType: "jsonp",
-                        contentType: 'application/json',
-                        success: function (data) {
-                            //$(".lyric").text("success");
-                            resultElement += '<p class="lyric">success</p>';
-                            console.log(resultElement);
-                            var dataString = JSON.stringify(data);
-                            //                    console.log(trackID, data, dataString.lenght, data.message.body.length, data.message.body.lyrics.lyrics_body);
-                            console.log(item.track.lyrics_id, data, dataString.length);
-                            //success - it has some text inside
-                            if (dataString.length > 90) {
-                                console.log("inside IF dataString.length");
-                                //success - it has lyrics inside
-                                if (data.message.body.lyrics.lyrics_body !== "") {
-                                    console.log("inside IF data.message.body.lyrics.lyrics_body");
-                                    //$(".lyric").text(data.message.body.lyrics.lyrics_body);
-                                    resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
-                                    console.log(resultElement);
-                                    //$(".lyric").text("???");
-                                }
-                                //failure - has text but no lyrics
-                                else {
-                                    console.log("inside ELSE data.message.body.lyrics.lyrics_body");
-                                    //$(".lyric").text("empty");
-                                    resultElement += '<p class="lyric">failure - has text but no lyrics</p>';
-                                    console.log(resultElement);
-                                }
+                        contentType: 'application/json'
+                    })
+                    /* if the call is successful (status 200 OK) show results */
+                    .done(function (result) {
+                        /* if the results are meeningful, we can just console.log them */
+                        console.log(result);
+
+                        //$(".lyric").text("success");
+                        resultElement += '<p class="lyric">success</p>';
+                        console.log(resultElement);
+                        var dataString = JSON.stringify(data);
+                        //                    console.log(trackID, data, dataString.lenght, data.message.body.length, data.message.body.lyrics.lyrics_body);
+                        console.log(item.track.lyrics_id, data, dataString.length);
+                        //success - it has some text inside
+                        if (dataString.length > 90) {
+                            console.log("inside IF dataString.length");
+                            //success - it has lyrics inside
+                            if (data.message.body.lyrics.lyrics_body !== "") {
+                                console.log("inside IF data.message.body.lyrics.lyrics_body");
+                                //$(".lyric").text(data.message.body.lyrics.lyrics_body);
+                                resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
+                                console.log(resultElement);
+                                //$(".lyric").text("???");
                             }
-                            //failure - has no text and no lyrics
+                            //failure - has text but no lyrics
                             else {
-                                console.log("inside ELSE dataString.length");
-                                //$(".lyric").text("lyric");
-                                resultElement += '<p class="lyric">failure - not text no lyrics</p>';
+                                console.log("inside ELSE data.message.body.lyrics.lyrics_body");
+                                //$(".lyric").text("empty");
+                                resultElement += '<p class="lyric">failure - has text but no lyrics</p>';
                                 console.log(resultElement);
                             }
-
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            //$(".lyric").text("error");
-                            resultElement += '<p class="lyric">error</p>';
+                        }
+                        //failure - has no text and no lyrics
+                        else {
+                            console.log("inside ELSE dataString.length");
+                            //$(".lyric").text("lyric");
+                            resultElement += '<p class="lyric">failure - not text no lyrics</p>';
                             console.log(resultElement);
-                            console.log(jqXHR);
-                            console.log(textStatus);
-                            console.log(errorThrown);
                         }
 
-                    }
-
-                );
+                    })
+                    /* if the call is NOT successful show errors */
+                    .fail(function (jqXHR, error, errorThrown) {
+                        //$(".lyric").text("error");
+                        resultElement += '<p class="lyric">error</p>';
+                        console.log(resultElement);
+                        console.log(jqXHR);
+                        console.log(error);
+                        console.log(errorThrown);
+                    });
             }
 
             resultElement += '</li>';
@@ -161,28 +150,3 @@ function displaySearchData(data) {
 
 
 //example of non call back api call
-
-var result = $.ajax({
-        /* update API end point */
-        type: "GET",
-        data: {
-            apikey: "b93f69f6b5070fdea1c558202a18ae1e",
-            track_id: item.track.lyrics_id,
-            format: "jsonp"
-        },
-        url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
-        dataType: "jsonp",
-        contentType: 'application/json'
-    })
-    /* if the call is successful (status 200 OK) show results */
-    .done(function (result) {
-        /* if the results are meeningful, we can just console.log them */
-        console.log(result);
-
-    })
-    /* if the call is NOT successful show errors */
-    .fail(function (jqXHR, error, errorThrown) {
-        console.log(jqXHR);
-        console.log(error);
-        console.log(errorThrown);
-    });
