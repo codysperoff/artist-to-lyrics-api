@@ -6,25 +6,25 @@ Thinkful (https://www.thinkful.com) Unit 1 Portfolio Exercise - jQuery app integ
 ![home-page-search-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-search-results.png)
 ![home-page-no-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-no-results.png)
 
-##Background
+## Background
 
 I built this app drawing on my experience from the PR industry to analyse which sources *The Guardian* cites when writing an article on any given topic. For instance, on the subject of "politics", what are the sources that *The Guardian* most often cite? In addition, I wanted to analyse which bylines (the writers of the article) were associated with that subject most frequently.
 
-##Use Case
+## Use Case
 
 Why is this app useful? If you are struggling to get *The Guardian* to write about your brand / organisation an alternative strategy is to try to place your stories with other publications that *The Guardian* considers influential, allowing you to get your story picked up indirectly. Nice!
 
-##Initial UX
+## Initial UX
 
 The initial mobile and desktop wireframes can be seen below:
 
 ![Initial Wireframes](http://jonwade.digital/github-images/guardian-api-image.jpg)
 
-##Working Prototype
+## Working Prototype
 
-You can access a working prototype of the app here: http://incite.news
+You can access a working prototype of the app here: https://codysperoff.github.io/artist-to-lyrics-api/
 
-##Functionality
+## Functionality
 The app's functionality includes:
 
 * Analysis of the 100 most relevant articles returned by *The Guardian* on any given search term.
@@ -35,11 +35,11 @@ The app's functionality includes:
 * Detailing the total number of unique domains associated with those links.
 * Suppressing internal links to *The Guardian* and key social media sites from the overall results.
 
-##Technical
+## Technical
 
 The app is built entirely in jQuery and makes use of AJAX calls to *The Guardian*'s Open Platform API to return the data. All data is held in memory during the user's session. It has been built to be fully responsive across mobile, tablet and desktop screen resolutions.
 
-##Development Roadmap
+## Development Roadmap
 
 This is v1.0 of the app, but future enhancements are expected to include:
 
