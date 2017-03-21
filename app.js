@@ -77,7 +77,7 @@ function getLyricsByTrackID(trackID) {
                 //failure - has text but no lyrics
                 else {
                     //console.log("inside ELSE data.message.body.lyrics.lyrics_body");
-                    $(".lyric-" + trackID).html('failure - has text but no lyrics');
+                    $(".lyric-" + trackID).html('Sorry! This song doesn\'t have any lyrics.');
                 }
             }
             //failure - has no text and no lyrics
@@ -91,7 +91,7 @@ function getLyricsByTrackID(trackID) {
             console.log(jqXHR);
             console.log(error);
             console.log(errorThrown);
-            $(".lyric-" + trackID).html('api error');
+            $(".lyric-" + trackID).html('Sorry! There was an error accessing the API.');
         });
 };
 
@@ -120,7 +120,7 @@ function displaySearchData(data) {
 
 
             if (item.track.lyrics_id === 0) {
-                resultElement += '<p class="lyric">no id</p>';
+                resultElement += '<p class="lyric">Sorry! This song doesn\'t have any lyrics.</p>';
             } else {
                 resultElement += '<p class="lyric-' + item.track.lyrics_id + '"></p>';
                 getLyricsByTrackID(item.track.lyrics_id);
