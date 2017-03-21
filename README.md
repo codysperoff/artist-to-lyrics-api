@@ -2,7 +2,9 @@
 
 Thinkful (https://www.thinkful.com) Unit 1 Portfolio Exercise - jQuery app integrating with *The Guardian*'s Open Platform API
 
-![Screenshot](http://jonwade.digital/github-images/incite-news-screenshot.png)
+![home-page-before-search](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-before-search.png)
+![home-page-search-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-search-results.png)
+![home-page-no-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-no-results.png)
 
 ##Background
 

@@ -28,7 +28,7 @@ function getTrackIDsByArtist(userText) {
                 q_artist: userText,
                 format: "jsonp"
             },
-            url: "http://api.musixmatch.com/ws/1.1/track.search",
+            url: "https://api.musixmatch.com/ws/1.1/track.search",
             dataType: "jsonp",
             contentType: 'application/json'
         })
@@ -56,7 +56,7 @@ function getLyricsByTrackID(trackID) {
                 track_id: trackID,
                 format: "jsonp"
             },
-            url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
+            url: "https://api.musixmatch.com/ws/1.1/track.lyrics.get",
             dataType: "jsonp",
             contentType: 'application/json'
         })
