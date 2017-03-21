@@ -2,13 +2,17 @@
 
 
 
+
+var resultElement = "";
 //1. Take input from user
 $(document).ready(function () {
     $('.search-form').submit(function (event) {
         event.preventDefault();
         // get the text the user submitted
         var userText = $(this).find('#user-text').val();
-        console.log(userText);
+        //console.log(userText);
+        $('#search-results').html("");
+        resultElement = "";
         getTrackIDsByArtist(userText);
     });
 });
@@ -31,7 +35,7 @@ function getTrackIDsByArtist(userText) {
         /* if the call is successful (status 200 OK) show results */
         .done(function (result) {
             /* if the results are meeningful, we can just console.log them */
-            console.log(result);
+            //console.log(result);
             displaySearchData(result);
         })
         /* if the call is NOT successful show errors */
@@ -44,18 +48,61 @@ function getTrackIDsByArtist(userText) {
 };
 
 function getLyricsByTrackID(trackID) {
+    var result = $.ajax({
+            /* update API end point */
+            type: "GET",
+            data: {
+                apikey: "b93f69f6b5070fdea1c558202a18ae1e",
+                track_id: trackID,
+                format: "jsonp"
+            },
+            url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
+            dataType: "jsonp",
+            contentType: 'application/json'
+        })
+        /* if the call is successful (status 200 OK) show results */
+        .done(function (result) {
+            /* if the results are meeningful, we can just console.log them */
+            //console.log(result);
+            //success - it has some text inside
+            if (result.message.body.length !== 0) {
+                //console.log("inside IF result.message.body.length");
 
+                //success - it has lyrics inside
+                if (result.message.body.lyrics.lyrics_body !== "") {
+                    //console.log("inside IF data.message.body.lyrics.lyrics_body");
+                    $(".lyric-" + trackID).html(result.message.body.lyrics.lyrics_body);
 
+                }
+                //failure - has text but no lyrics
+                else {
+                    //console.log("inside ELSE data.message.body.lyrics.lyrics_body");
+                    $(".lyric-" + trackID).html('failure - has text but no lyrics');
+                }
+            }
+            //failure - has no text and no lyrics
+            else {
+                //console.log("inside ELSE result.message.body.length");
+                $(".lyric-" + trackID).html('Sorry! This song doesn\'t have any lyrics.');
+            }
+        })
+        /* if the call is NOT successful show errors */
+        .fail(function (jqXHR, error, errorThrown) {
+            console.log(jqXHR);
+            console.log(error);
+            console.log(errorThrown);
+            $(".lyric-" + trackID).html('api error');
+        });
 };
+
+
 
 //3. Show the api results in a repository
 
 function displaySearchData(data) {
 
-    console.log(data.message.body.track_list);
+    //console.log(data.message.body.track_list);
 
-
-    var resultElement = '';
     if (data.message.body.track_list.length == 0) {
         alert("No Results Found!");
 
@@ -69,84 +116,19 @@ function displaySearchData(data) {
             resultElement += '<a href="' + item.track.track_share_url + '" target = "_blank">'; //target blank will open the video in a new window
             resultElement += '<img src ="' + item.track.album_coverart_100x100 + '"/>'; //displays the video's thumbnail
             resultElement += '</a>';
-            console.log(resultElement);
 
 
 
             if (item.track.lyrics_id === 0) {
-                //$(".lyric").text("no id");
                 resultElement += '<p class="lyric">no id</p>';
-                console.log(resultElement);
             } else {
-                var result = $.ajax({
-                        /* update API end point */
-                        type: "GET",
-                        data: {
-                            apikey: "b93f69f6b5070fdea1c558202a18ae1e",
-                            track_id: item.track.lyrics_id,
-                            format: "jsonp"
-                        },
-                        url: "http://api.musixmatch.com/ws/1.1/track.lyrics.get",
-                        dataType: "jsonp",
-                        contentType: 'application/json'
-                    })
-                    /* if the call is successful (status 200 OK) show results */
-                    .done(function (result) {
-                        /* if the results are meeningful, we can just console.log them */
-                        console.log(result);
-
-                        //$(".lyric").text("success");
-                        resultElement += '<p class="lyric">success</p>';
-                        console.log(resultElement);
-                        var dataString = JSON.stringify(data);
-                        //                    console.log(trackID, data, dataString.lenght, data.message.body.length, data.message.body.lyrics.lyrics_body);
-                        console.log(item.track.lyrics_id, data, dataString.length);
-                        //success - it has some text inside
-                        if (dataString.length > 90) {
-                            console.log("inside IF dataString.length");
-                            //success - it has lyrics inside
-                            if (data.message.body.lyrics.lyrics_body !== "") {
-                                console.log("inside IF data.message.body.lyrics.lyrics_body");
-                                //$(".lyric").text(data.message.body.lyrics.lyrics_body);
-                                resultElement += '<p class="lyric">???' + data.message.body.lyrics.lyrics_body + '</p>';
-                                console.log(resultElement);
-                                //$(".lyric").text("???");
-                            }
-                            //failure - has text but no lyrics
-                            else {
-                                console.log("inside ELSE data.message.body.lyrics.lyrics_body");
-                                //$(".lyric").text("empty");
-                                resultElement += '<p class="lyric">failure - has text but no lyrics</p>';
-                                console.log(resultElement);
-                            }
-                        }
-                        //failure - has no text and no lyrics
-                        else {
-                            console.log("inside ELSE dataString.length");
-                            //$(".lyric").text("lyric");
-                            resultElement += '<p class="lyric">failure - not text no lyrics</p>';
-                            console.log(resultElement);
-                        }
-
-                    })
-                    /* if the call is NOT successful show errors */
-                    .fail(function (jqXHR, error, errorThrown) {
-                        //$(".lyric").text("error");
-                        resultElement += '<p class="lyric">error</p>';
-                        console.log(resultElement);
-                        console.log(jqXHR);
-                        console.log(error);
-                        console.log(errorThrown);
-                    });
+                resultElement += '<p class="lyric-' + item.track.lyrics_id + '"></p>';
+                getLyricsByTrackID(item.track.lyrics_id);
             }
 
             resultElement += '</li>';
         });
     }
-    //console.log(resultElement);
 
     $('#search-results').html(resultElement);
 }
-
-
-//example of non call back api call
