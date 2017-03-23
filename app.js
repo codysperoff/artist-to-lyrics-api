@@ -110,7 +110,7 @@ function displaySearchData(data) {
         data.message.body.track_list.forEach(function (item) {
             //            console.log(item.track.lyrics_id);
             resultElement += '<li>';
-            resultElement += '<h2>' + item.track.track_name + ' (' + item.track.lyrics_id + ')</h2>';
+            resultElement += '<h2>' + item.track.track_name + '</h2>';
             resultElement += '<h3>' + item.track.album_name + '</h3>';
             resultElement += '<h4>' + item.track.artist_name + '</h4>';
             resultElement += '<a href="' + item.track.track_share_url + '" target = "_blank">'; //target blank will open the video in a new window

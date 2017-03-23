@@ -1,24 +1,26 @@
 # artist-to-lyrics-api
 
-Thinkful (https://www.thinkful.com) Unit 1 Portfolio Exercise - jQuery app integrating with *The Guardian*'s Open Platform API
+Thinkful (https://www.thinkful.com) Unit 2 Frontend Web Development Capstone Project - jQuery app integrating with the *musixmatch* Open Platform API.
 
 ![home-page-before-search](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-before-search.png)
+
+
 ![home-page-search-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-search-results.png)
+
+
 ![home-page-no-results](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-no-results.png)
 
 ## Background
 
-I built this app drawing on my experience from the PR industry to analyse which sources *The Guardian* cites when writing an article on any given topic. For instance, on the subject of "politics", what are the sources that *The Guardian* most often cite? In addition, I wanted to analyse which bylines (the writers of the article) were associated with that subject most frequently.
-
+I am avid music listener with a wide range in musical taste. I love hearing new music, but I have found that the search for new music can be difficult at times due to the wide range of artists available to listen to. I wanted to create an app that would allow users to search an artist and read through some of their lyrics (provided by MusixMatch) from a random group of their songs. In doing so, I would hope that the user got a better feel of what the artist is like before they went and heard some of their songs.
 ## Use Case
 
-Why is this app useful? If you are struggling to get *The Guardian* to write about your brand / organisation an alternative strategy is to try to place your stories with other publications that *The Guardian* considers influential, allowing you to get your story picked up indirectly. Nice!
-
+Why is this app useful? If a user wants to get to know what a certain artist is like before having to listen to several songs, they can read through some of their lyrics to find out, saving them lots of time. Additionally, a user might be able to see whether an artist tends to use profanity/write profane lyrics. This could be useful if the user is trying to put together a family-friendly playlist.
 ## Initial UX
 
 The initial mobile and desktop wireframes can be seen below:
 
-![Initial Wireframes](http://jonwade.digital/github-images/guardian-api-image.jpg)
+
 
 ## Working Prototype
 
@@ -27,13 +29,9 @@ You can access a working prototype of the app here: https://codysperoff.github.i
 ## Functionality
 The app's functionality includes:
 
-* Analysis of the 100 most relevant articles returned by *The Guardian* on any given search term.
-* Listing the top 6 external domains cited by *The Guardian* on any given search query with links to those sites.
-* A histogram plot of the relative popularity of those top 6 sites.
-* Listing the top 6 bylines associated with any given search query with Google search links associated to those bylines.
-* Detailing the total number of anchor links within the articles returned by *The Guardian*'s Open Platform API.
-* Detailing the total number of unique domains associated with those links.
-* Suppressing internal links to *The Guardian* and key social media sites from the overall results.
+* Listing of a random assortment of 10 songs and/or performances by a musical artist, including a name of the song, album, a link to the musixmatch.com for the full lyrics, as well as a preview of the lyrics.
+* The ability for consecutive searches of different artists.
+* Suppressing internal links to MusixMatch and key social media sites from the overall results.
 
 ## Technical
 
@@ -43,9 +41,10 @@ The app is built entirely in jQuery and makes use of AJAX calls to *The Guardian
 
 This is v1.0 of the app, but future enhancements are expected to include:
 
-* Extending the app to analyse other top tier newspaper publications which offer an API (e.g. New York Times etc).
-* Plotting the inter-connection of story sourcing between different newspaper publications (e.g. is there a particular publication that leads opinion more than any other on a given topic?).
-* Adding a filter to allow the inclusion or exclusion of social media properties in the results.
-* Increasing the number of sites and bylines returned from the current six to an amount specified by the user.
-* Pulling in byline journalist email addresses and profile head shots automatically, to save the google search process employed presently.
-* Allowing a user-controlled site suppression list to be used to control the sites that are returned in the analysis.
+* Having a working photograph of the album if the search result is a song and a picture of the band if the search result is a performance.
+* Including a link to listen to the song through spotify, last.fm, or another music app.
+* Adding an option to share the song lyrics through facebook, twitter, or another social media api.
+* Adding a filter to increase/decrease the number of search results that appear.
+* Adding a filter to see only songs, only performances, or both.
+* Adding a filter to allow users to only view songs from an artist from a certain time period.
+* Adding an option for users to annotate a certain lyrics with the help of the Genius API.
