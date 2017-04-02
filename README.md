@@ -2,6 +2,9 @@
 
 Thinkful (https://www.thinkful.com) Unit 2 Frontend Web Development Capstone Project - jQuery app integrating with the *musixmatch* Open Platform API.
 
+![desktop-and-mobile-wireframes](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/api-artist-to-lyric-wireframe.jpg)
+
+
 ![home-page-before-search](https://codysperoff.github.io/artist-to-lyrics-api/readme-images/home-page-before-search.png)
 
 
