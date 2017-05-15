@@ -50,6 +50,8 @@ h1 {
     font-size: 20px;
     border-radius: 5px;
     padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 #searchButton {
@@ -93,7 +95,7 @@ h1 {
 }
 
 @media only screen and (max-width: 800px) {
-    h1{
+    h1 {
         font-size: 200%;
     }
     .results ul li {
