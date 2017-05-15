@@ -10,7 +10,6 @@ $(document).ready(function () {
         event.preventDefault();
         // get the text the user submitted
         var userText = $(this).find('#user-text').val();
-        //console.log(userText);
         $('#search-results').html("");
         resultElement = "";
         getTrackIDsByArtist(userText);
@@ -35,7 +34,6 @@ function getTrackIDsByArtist(userText) {
         /* if the call is successful (status 200 OK) show results */
         .done(function (result) {
             /* if the results are meeningful, we can just console.log them */
-            //console.log(result);
             displaySearchData(result);
         })
         /* if the call is NOT successful show errors */
@@ -63,26 +61,21 @@ function getLyricsByTrackID(trackID) {
         /* if the call is successful (status 200 OK) show results */
         .done(function (result) {
             /* if the results are meeningful, we can just console.log them */
-            //console.log(result);
             //success - it has some text inside
             if (result.message.body.length !== 0) {
-                //console.log("inside IF result.message.body.length");
 
                 //success - it has lyrics inside
                 if (result.message.body.lyrics.lyrics_body !== "") {
-                    //console.log("inside IF data.message.body.lyrics.lyrics_body");
                     $(".lyric-" + trackID).html(result.message.body.lyrics.lyrics_body);
 
                 }
                 //failure - has text but no lyrics
                 else {
-                    //console.log("inside ELSE data.message.body.lyrics.lyrics_body");
                     $(".lyric-" + trackID).html('Sorry! This song doesn\'t have any lyrics.');
                 }
             }
             //failure - has no text and no lyrics
             else {
-                //console.log("inside ELSE result.message.body.length");
                 $(".lyric-" + trackID).html('Sorry! This song doesn\'t have any lyrics.');
             }
         })
@@ -100,15 +93,11 @@ function getLyricsByTrackID(trackID) {
 //3. Show the api results in a repository
 
 function displaySearchData(data) {
-
-    //console.log(data.message.body.track_list);
-
     if (data.message.body.track_list.length == 0) {
         alert("No Results Found!");
 
     } else {
         data.message.body.track_list.forEach(function (item) {
-            //            console.log(item.track.lyrics_id);
             resultElement += '<li>';
             resultElement += '<h2>' + item.track.track_name + '</h2>';
             resultElement += '<h3>' + item.track.album_name + '</h3>';
